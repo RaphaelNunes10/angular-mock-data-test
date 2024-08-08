@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { MockService } from './mock.service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'mock-data-test';
+
+  dataList: string = "";
+  mockService: MockService = inject(MockService);
+
+  constructor() {
+    this.mockService.getAllData().then((data: any[]) => {
+      this.dataList = JSON.stringify(data);
+    });
+  }
 }
